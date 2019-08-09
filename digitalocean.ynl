@@ -1,0 +1,34 @@
+---
+#
+# create droplets in digital ocean and auto add in iinventory file
+# Author - Raghav
+# email- Raghav.chauhan78@gmail.com
+#
+#
+#############################
+- name: create digital ocean droplets using api
+  hosts: localhost
+  vars:
+    d_api: #your Digital ocean Auth API
+    ssh_value: #your digital ocean ssh-key fingerprint
+    hostname_d: ubuntu1       #define hostname for droplets
+  tasks:
+    - name: create droplets with 1 GB ram and 1 core vcpu
+      digital_ocean:
+         state: present
+         ssh_key_ids: "{{ ssh_value }}"
+         name: "{{ hostname_d }}"
+         api_token: "{{ d_api }}"
+         size_id: s-1vcpu-1gb                  # for droplets size and cpus
+         region_id: nyc3                       # region
+         image_id: ubuntu-18-04-x64            # for os instalation
+         wait_timeout: 500
+      register: my_droplet
+    - debug:
+         msg: "ID is {{ my_droplet.droplet.id }}"
+    - debug:
+         msg: "IP is {{ my_droplet.droplet.ip_address }}"
+    - name: add droplets informations in inventory file
+      lineinfile:
+         path: host # inventory file path
+         line: "{{ hostname_d }} ansible_ssh_host={{ my_droplet.droplet.ip_address }} ansible_ssh_port=22 ansible_ssh_user=root"
