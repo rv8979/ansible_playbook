@@ -9,7 +9,7 @@
         state: import
         name: "{{ item }}"
         target: /root/db/{{ item }}.sql # file on remote server
-      with_items:
+      with_items: # all database file name
         - appattune_algebra-connections
         - appattune_all-star
         - appattune_ase-logix
