@@ -1,0 +1,17 @@
+---
+- name: ec2 exp
+  hosts: localhost
+  tasks:
+   - name: create ec2 instance
+     ec2:
+          aws_access_key: "##########"
+          aws_secret_key: "###############"
+          image: ami-009110a2bf8d7dd0a
+          wait: yes
+          instance_type: t2.micro
+          group_id: sg-073bb4a3ee5b68199
+          region: ap-south-1
+          count_tag:
+            Name: apacheserver
+          exact_count: 1
+     register: ec2
