@@ -11,6 +11,7 @@
           instance_type: t2.micro
           group_id: sg-073bb4a3ee5b68199
           region: ap-south-1
+          key_name: cre
           count_tag:
             Name: apacheserver
           exact_count: 1
