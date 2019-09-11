@@ -1,0 +1,50 @@
+---
+- name: import multipal database
+  hosts: database_server
+  tasks:
+    - name: import databases
+      mysql_db:
+        login_user: db_user
+        login_password: db_password
+        state: import
+        name: "{{ item }}"
+        target: /root/db/{{ item }}.sql # file on remote server
+      with_items:
+        - appattune_algebra-connections
+        - appattune_all-star
+        - appattune_ase-logix
+        - appattune_braid-lock-nation
+        - appattune_bridges-of-smiles
+        - appattune_buyer-bazaar
+        - appattune_chauncey-towing
+        - appattune_christian_community
+        - appattune_ci-shop
+        - appattune_crescendo-farm
+        - appattune_deliverance-ministries
+        - appattune_fab-four-taxi
+        - appattune_foam-insulation
+        - appattune_granite-planet
+        - appattune_harbe
+        - appattune_johnson-life-insurance-agency
+        - appattune_juicy-vape-clouds
+        - appattune_knockknockgotcha
+        - appattune_louisville360
+        - appattune_magna-property
+        - appattune_newsome-mobile-notary
+        - appattune_notary-match
+        - appattune_prime-dj
+        - appattune_professional-painters
+        - appattune_push-lifestyle
+        - appattune_rachel-kalisky
+        - appattune_realty-one-group
+        - appattune_red-robin
+        - appattune_renaissance-salon
+        - appattune_scottsdale
+        - appattune_scoumperdis
+        - appattune_social4
+        - appattune_taylor-made-garage-doors
+        - appattune_the-literary-tea-company
+        - appattune_trinityirrigations
+        - appattune_uchildcare
+        - appattune_upstate-construction
+        - appattune_zonkey-tech
